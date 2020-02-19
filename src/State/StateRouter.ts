@@ -4,6 +4,7 @@ import { MessageResponse, StateResponse } from '../ResponseBuilder';
 import { MongoStateProvider } from '../StateProvider/MongoStateProvider';
 import { Interceptor } from './Interceptor';
 import { State } from './State';
+import areEqual from 'fast-deep-equal';
 
 export interface StateRouterConfig<T extends string> {
     interceptors: Interceptor[];
@@ -36,10 +37,11 @@ export class StateRouter<T extends string> {
         console.log('Interceptor result - ', interceptorResponse);
 
         let stage: T;
+        let state: MongoState<any>;
 
         let response: StateResponse<any, T>;
         {
-            const state = await this.getState(message.chat.id);
+            state = await this.getState(message.chat.id);
             stage = state.stage;
             const statePerformer = this.config.states[stage];
             response = await statePerformer.performAction(message.text, state.data);
@@ -62,9 +64,12 @@ export class StateRouter<T extends string> {
             result = response;
         }
 
-        // TODO Performance: don't save changes if not changed
         const stageChanges = this.getStateChanges(result, stage, message.chat.id);
-        await this.stateProvider.saveState({ userId: stageChanges.userId }, stageChanges);
+
+        // don't save changes if not changed
+        if (!areEqual(stageChanges, state)) {
+            await this.stateProvider.saveState({ userId: stageChanges.userId }, stageChanges);
+        }
 
         return StateRouter.getMessageResponses(result, message.chat.id);
     }
