@@ -12,10 +12,14 @@ export class TelegramMessageProvider implements MessageProvider {
         this.token = token;
     }
 
-    respond(response: TelegramMessageResponse): Promise<any> {
-        return axios.post(
+    async respond(response: TelegramMessageResponse): Promise<any> {
+        const result = axios.post(
             `https://api.telegram.org/bot${this.id}:${this.token}/sendMessage`,
             response
         );
+
+        console.log(result);
+
+        return result;
     }
 }
