@@ -1,0 +1,1 @@
+{"version":3,"file":"LocalMessageProvider.js","sourceRoot":"","sources":["../../src/MessageProvider/LocalMessageProvider.ts"],"names":[],"mappings":";;AAGA,MAAa,oBAAoB;IAC7B,OAAO,CAAC,QAAiC;QACrC,OAAO,CAAC,GAAG,CAAC,IAAI,CAAC,SAAS,CAAC,QAAQ,CAAC,CAAC,CAAC;QAEtC,OAAO,OAAO,CAAC,OAAO,CAAC,EAAE,CAAC,CAAC;IAC/B,CAAC;CACJ;AAND,oDAMC"}
