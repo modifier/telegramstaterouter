@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2015",
+    "sourceMap": true,
+    "declaration": true,
+    "outDir": "./dist",
+    "esModuleInterop": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "baseUrl": ".",
+  "paths": {
+    "*": [
+      "*"
+    ]
+  }
+}

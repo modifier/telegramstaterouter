@@ -1,0 +1,23 @@
+{
+  "name": "bhi",
+  "version": "1.0.0",
+  "description": "Telegram state router",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "mongodb": "^3.5.3"
+  },
+  "files": ["dist/**/*"],
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/mongodb": "^3.3.16",
+    "typescript": "^3.7.5"
+  }
+}
