@@ -6,10 +6,16 @@ export interface ChangeStateResponse<Y> {
     replaceMessage?: string;
 }
 
+interface InlineKeyboardButton {
+    text: string;
+    query: string;
+}
+
 export interface MessageResponse<T> {
     type?: 'response';
     data: T;
     replyKeyboard: string[];
+    inlineKeyboard?: InlineKeyboardButton[];
     messages: string[];
 }
 
@@ -35,6 +41,7 @@ export class ResponseBuilder<T> {
     private data: T;
     private replyKeyboard: string[];
     private messages: string[] = [];
+    private inlineKeyboard: InlineKeyboardButton[];
 
     withData(data: T): ResponseBuilder<T> {
         this.data = data;
@@ -44,6 +51,12 @@ export class ResponseBuilder<T> {
 
     withKeyboard(replyKeyboard: string[]): ResponseBuilder<T> {
         this.replyKeyboard = replyKeyboard;
+
+        return this;
+    }
+
+    withInlineKeyboard(inlineKeyboard: InlineKeyboardButton[]): ResponseBuilder<T> {
+        this.inlineKeyboard = inlineKeyboard;
 
         return this;
     }
@@ -58,6 +71,7 @@ export class ResponseBuilder<T> {
         return {
             data: this.data,
             replyKeyboard: this.replyKeyboard,
+            inlineKeyboard: this.inlineKeyboard,
             messages: this.messages,
         };
     }
