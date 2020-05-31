@@ -28,6 +28,10 @@ class ResponseBuilder {
         this.replyKeyboard = replyKeyboard;
         return this;
     }
+    withInlineKeyboard(inlineKeyboard) {
+        this.inlineKeyboard = inlineKeyboard;
+        return this;
+    }
     addMessage(message) {
         this.messages.push(message);
         return this;
@@ -36,6 +40,7 @@ class ResponseBuilder {
         return {
             data: this.data,
             replyKeyboard: this.replyKeyboard,
+            inlineKeyboard: this.inlineKeyboard,
             messages: this.messages,
         };
     }

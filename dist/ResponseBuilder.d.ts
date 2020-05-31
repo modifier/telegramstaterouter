@@ -5,10 +5,15 @@ export interface ChangeStateResponse<Y> {
     prependedMessage?: string;
     replaceMessage?: string;
 }
+interface InlineKeyboardButton {
+    text: string;
+    query: string;
+}
 export interface MessageResponse<T> {
     type?: 'response';
     data: T;
     replyKeyboard: string[];
+    inlineKeyboard?: InlineKeyboardButton[];
     messages: string[];
 }
 export declare type StateResponse<T, Y> = MessageResponse<T> | ChangeStateResponse<Y>;
@@ -18,8 +23,11 @@ export declare class ResponseBuilder<T> {
     private data;
     private replyKeyboard;
     private messages;
+    private inlineKeyboard;
     withData(data: T): ResponseBuilder<T>;
     withKeyboard(replyKeyboard: string[]): ResponseBuilder<T>;
+    withInlineKeyboard(inlineKeyboard: InlineKeyboardButton[]): ResponseBuilder<T>;
     addMessage(message: string): ResponseBuilder<T>;
     toResponse(): MessageResponse<T>;
 }
+export {};

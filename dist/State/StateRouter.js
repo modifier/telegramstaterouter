@@ -8,7 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const fast_deep_equal_1 = __importDefault(require("fast-deep-equal"));
 // TODO Common: add debug logs
 class StateRouter {
     constructor(config, stateProvider) {
@@ -27,9 +31,10 @@ class StateRouter {
             }
             console.log('Interceptor result - ', interceptorResponse);
             let stage;
+            let state;
             let response;
             {
-                const state = yield this.getState(message.chat.id);
+                state = yield this.getState(message.chat.id);
                 stage = state.stage;
                 const statePerformer = this.config.states[stage];
                 response = yield statePerformer.performAction(message.text, state.data);
@@ -49,9 +54,11 @@ class StateRouter {
             else {
                 result = response;
             }
-            // TODO Performance: don't save changes if not changed
             const stageChanges = this.getStateChanges(result, stage, message.chat.id);
-            yield this.stateProvider.saveState({ userId: stageChanges.userId }, stageChanges);
+            // don't save changes if not changed
+            if (!fast_deep_equal_1.default(stageChanges, state)) {
+                yield this.stateProvider.saveState({ userId: stageChanges.userId }, stageChanges);
+            }
             return StateRouter.getMessageResponses(result, message.chat.id);
         });
     }
@@ -88,6 +95,14 @@ class StateRouter {
             one_time_keyboard: true,
             resize_keyboard: true,
         };
+        if (response.inlineKeyboard && result.length > 1) {
+            response[result.length - 2].reply_markup = {
+                inline_keyboard: response.inlineKeyboard.map(({ text, query }) => ({
+                    switch_inline_query_current_chat: query,
+                    text,
+                }))
+            };
+        }
         return result;
     }
 }

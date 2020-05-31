@@ -9,11 +9,18 @@ export interface ReplyKeyboardMarkup {
 export interface ReplyKeyboardRemove {
     remove_keyboard: true;
 }
-export declare type ReplyKeyboard = ReplyKeyboardMarkup | ReplyKeyboardRemove;
+interface InlineKeyboardButton {
+    text: string;
+    switch_inline_query_current_chat: string;
+}
+export interface InlineKeyboardMarkup {
+    inline_keyboard: InlineKeyboardButton[];
+}
+export declare type ReplyKeyboard = InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove;
 export interface TelegramMessageResponse {
     chat_id: number;
     text: string;
-    reply_markup?: ReplyKeyboardMarkup | ReplyKeyboardRemove;
+    reply_markup?: ReplyKeyboard;
     reply_to_message_id?: number;
     parse_mode?: 'HTML';
     disable_web_page_preview?: boolean;
@@ -33,3 +40,4 @@ export interface TelegramMessageRequest {
     date: number;
     text: string;
 }
+export {};
