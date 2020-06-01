@@ -8,7 +8,8 @@ export interface ChangeStateResponse<Y> {
 
 interface InlineKeyboardButton {
     text: string;
-    query: string;
+    query?: string;
+    url?: string;
 }
 
 export interface MessageResponse<T> {

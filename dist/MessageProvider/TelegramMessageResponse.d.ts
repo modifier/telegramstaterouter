@@ -11,7 +11,8 @@ export interface ReplyKeyboardRemove {
 }
 interface InlineKeyboardButton {
     text: string;
-    switch_inline_query_current_chat: string;
+    callback_data?: string;
+    url?: string;
 }
 export interface InlineKeyboardMarkup {
     inline_keyboard: InlineKeyboardButton[][];
