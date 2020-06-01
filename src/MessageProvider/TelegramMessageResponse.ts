@@ -18,7 +18,7 @@ interface InlineKeyboardButton {
 }
 
 export interface InlineKeyboardMarkup {
-    inline_keyboard: InlineKeyboardButton[];
+    inline_keyboard: InlineKeyboardButton[][];
 }
 
 export type ReplyKeyboard = InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove;

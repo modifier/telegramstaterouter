@@ -14,7 +14,7 @@ interface InlineKeyboardButton {
     switch_inline_query_current_chat: string;
 }
 export interface InlineKeyboardMarkup {
-    inline_keyboard: InlineKeyboardButton[];
+    inline_keyboard: InlineKeyboardButton[][];
 }
 export declare type ReplyKeyboard = InlineKeyboardMarkup | ReplyKeyboardMarkup | ReplyKeyboardRemove;
 export interface TelegramMessageResponse {

@@ -118,10 +118,10 @@ export class StateRouter<T extends string> {
 
         if (response.inlineKeyboard && result.length > 1) {
             result[result.length - 2].reply_markup = {
-                inline_keyboard: response.inlineKeyboard.map(({ text, query }) => ({
+                inline_keyboard: [response.inlineKeyboard.map(({ text, query }) => ({
                     switch_inline_query_current_chat: query,
                     text,
-                }))
+                }))]
             };
         }
 
