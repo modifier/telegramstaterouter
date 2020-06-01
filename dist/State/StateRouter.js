@@ -96,7 +96,7 @@ class StateRouter {
             resize_keyboard: true,
         };
         if (response.inlineKeyboard && result.length > 1) {
-            response[result.length - 2].reply_markup = {
+            result[result.length - 2].reply_markup = {
                 inline_keyboard: response.inlineKeyboard.map(({ text, query }) => ({
                     switch_inline_query_current_chat: query,
                     text,
