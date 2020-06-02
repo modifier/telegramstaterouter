@@ -83,7 +83,9 @@ class StateRouter {
         for (const message of response.messages) {
             result.push({
                 chat_id: chatId,
-                text: message
+                text: message,
+                parse_mode: 'HTML',
+                disable_web_page_preview: true
             });
         }
         if (result.length === 0) {
